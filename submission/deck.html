@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;700;800&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  @page { size: 1920px 1080px; margin: 0; }
+  * { box-sizing: border-box; margin: 0; }
+  html, body { width: 1920px; }
+  body { font-family: "Atkinson Hyperlegible", "DejaVu Sans", sans-serif; color: #292524; background: #fff; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .slide { width: 1920px; height: 1080px; page-break-after: always; position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: center; padding: 110px 140px; }
+  .slide:last-child { page-break-after: avoid; }
+  .kicker { font-family: "Inter Tight", sans-serif; font-size: 30px; font-weight: 700; letter-spacing: 5px; text-transform: uppercase; color: #d52c26; margin-bottom: 26px; }
+  h1 { font-family: "Inter Tight", sans-serif; font-size: 118px; line-height: 1.02; letter-spacing: -3px; font-weight: 800; }
+  h2 { font-family: "Inter Tight", sans-serif; font-size: 84px; line-height: 1.05; letter-spacing: -2px; font-weight: 800; margin-bottom: 34px; }
+  h1 em, h2 em { font-style: normal; color: #d52c26; }
+  p.lead { font-size: 38px; line-height: 1.45; color: #44403c; max-width: 1500px; }
+  .hero { background: #d52c26; color: #fff; }
+  .hero .kicker { color: #fecaca; }
+  .hero h1 { font-size: 150px; }
+  .hero p.lead { color: rgba(255,255,255,.92); }
+  .hero .links { margin-top: 54px; font-size: 34px; color: #fecaca; font-weight: 700; }
+  .dots { position: absolute; inset: 0; background-image: radial-gradient(rgba(255,255,255,.16) 2px, transparent 2px); background-size: 34px 34px; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; margin-top: 10px; }
+  .grid4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 36px; margin-top: 10px; }
+  .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 36px; margin-top: 10px; }
+  .card { background: #fdf8f3; border: 2px solid #f0e4da; border-radius: 28px; padding: 44px 40px; }
+  .card.dark { background: #1c1917; border-color: #1c1917; color: #fff; }
+  .bignum { font-family: "Inter Tight", sans-serif; font-size: 76px; font-weight: 800; color: #d52c26; line-height: 1; }
+  .card.dark .bignum { color: #fbbf24; }
+  .cap { font-size: 27px; color: #57534e; margin-top: 12px; line-height: 1.4; }
+  .card.dark .cap { color: #d6d3d1; }
+  table { width: 100%; border-collapse: collapse; font-size: 30px; margin-top: 6px; }
+  th { font-family: "Inter Tight", sans-serif; text-align: left; font-size: 26px; text-transform: uppercase; letter-spacing: 2px; color: #a8a29e; padding: 14px 18px; border-bottom: 3px solid #e7e5e4; }
+  td { padding: 20px 18px; border-bottom: 2px solid #f0e4da; vertical-align: top; }
+  tr.us td { background: #fdf0ef; font-weight: 700; }
+  .foot { position: absolute; bottom: 44px; left: 140px; right: 140px; display: flex; justify-content: space-between; font-size: 24px; color: #a8a29e; }
+  .cta-row { display: flex; gap: 28px; margin-top: 50px; }
+  .pill { font-family: "Inter Tight", sans-serif; font-size: 36px; font-weight: 700; background: #fff; color: #d52c26; border-radius: 999px; padding: 22px 52px; }
+  .pill.ghost { background: transparent; color: #fff; border: 3px solid rgba(255,255,255,.7); }
+  ul.tight li { font-size: 33px; line-height: 1.5; margin-bottom: 14px; color: #44403c; }
+  ul.tight { margin-top: 8px; padding-left: 40px; }
+  b.hl { color: #d52c26; }
+</style>
+</head>
+<body>
+
+<!-- 1 TITLE -->
+<section class="slide hero">
+  <div class="dots"></div>
+  <div style="position:relative">
+    <div class="kicker">AssemblyAI Voice Agent Hackathon · Live on a real phone line</div>
+    <h1>SilverLine</h1>
+    <h1 style="font-size:76px;margin-top:10px;">The voice line that <u>waits.</u></h1>
+    <p class="lead" style="margin-top:30px">A slow-safe voice companion for elderly patients. Confirms visits and medications over a plain phone call — then proves it with a signed receipt.</p>
+    <div class="links">silverline-voice.vercel.app &nbsp;·&nbsp; +1 (804) 315-1987 &nbsp;·&nbsp; github.com/PhiBao/silverline-voice</div>
+  </div>
+  <div class="foot" style="color:rgba(255,255,255,.65)"><span>SilverLine</span><span>1 / 8</span></div>
+</section>
+
+<!-- 2 PROBLEM -->
+<section class="slide">
+  <div class="kicker">The problem</div>
+  <h2>Voice bots got faster.<br>Patients got <em>older.</em></h2>
+  <div class="grid3">
+    <div class="card"><div class="bignum">2 in 12s</div><div class="cap">interruptions a default-tuned bot inflicts on one hesitant caller — measured live in our demo</div></div>
+    <div class="card"><div class="bignum">Thursday →<br>“Tuesday?”</div><div class="cap">fast bots guess dates and mangle drug names instead of asking again</div></div>
+    <div class="card"><div class="bignum">0 proof</div><div class="cap">after the call there is nothing the family can check — just a transcript nobody reads</div></div>
+  </div>
+  <div class="foot"><span>SilverLine</span><span>2 / 8</span></div>
+</section>
+
+<!-- 3 USER -->
+<section class="slide">
+  <div class="kicker">The user</div>
+  <h2>Margaret, 78.<br>No app. No account. <em>Just a phone.</em></h2>
+  <div class="grid3">
+    <div class="card"><div class="bignum">78 yrs</div><div class="cap"><b>Primary:</b> Margaret and millions like her — slow speech, plain phones, no apps</div></div>
+    <div class="card"><div class="bignum">1 link</div><div class="cap"><b>Viral loop:</b> adult children who worry from afar and forward the receipt — “see, Dad’s Thursday is set”</div></div>
+    <div class="card"><div class="bignum">$ / visit</div><div class="cap"><b>Payer:</b> single-location clinics drowning in reminder phone tag and no-shows</div></div>
+  </div>
+  <div class="foot"><span>SilverLine</span><span>3 / 8</span></div>
+</section>
+
+<!-- 4 PROOF -->
+<section class="slide">
+  <div class="kicker">Live proof — Sep 22, real PSTN call</div>
+  <h2>8 minutes, 8 seconds.<br>One booking. <em>Receipt valid.</em></h2>
+  <div class="grid4">
+    <div class="card dark"><div class="bignum">8:08</div><div class="cap">completed Twilio → SIP → AssemblyAI call, zero errors</div></div>
+    <div class="card dark"><div class="bignum">Thu 10AM</div><div class="cap">real booking: Sep 17, Dr. Rao — double-book attempt visibly rejected</div></div>
+    <div class="card dark"><div class="bignum">3 / 3</div><div class="cap">medications teach-back confirmed, keyterm-boosted hearing</div></div>
+    <div class="card dark"><div class="bignum">✓ + $0.60</div><div class="cap">HMAC-signed receipt verified true; whole call ≈ sixty cents</div></div>
+  </div>
+  <div class="foot"><span>Full log in /proof — every claim reproducible</span><span>4 / 8</span></div>
+</section>
+
+<!-- 5 TECH -->
+<section class="slide">
+  <div class="kicker">Technical depth — all AssemblyAI</div>
+  <h2>Five mechanisms, <em>one loop.</em></h2>
+  <div class="grid2">
+    <ul class="tight">
+      <li><b>Patient turn-taking</b> — 1200/3500 ms envelope + semantic barge-in; switchable live via <b class="hl">session.update</b></li>
+      <li><b>Dynamic keyterms</b> — vocabulary narrows per stage (clinic → drugs), no reconnect</li>
+      <li><b>5 function + HTTP tools</b> — availability, transactional booking, meds, receipts</li>
+    </ul>
+    <ul class="tight">
+      <li><b>Single-use token mint</b> — API key never reaches the browser; <b class="hl">session.end</b> hygiene</li>
+      <li><b>Real phone path</b> — Twilio SIP trunk → <b class="hl">sip.eu.assemblyai.com</b> (EU accounts 503 on the US ingress — found live)</li>
+      <li><b>Supabase Postgres</b> — durable bookings/receipts; server-side caller memory</li>
+    </ul>
+  </div>
+  <div class="foot"><span>SilverLine</span><span>5 / 8</span></div>
+</section>
+
+<!-- 6 COMPETITION -->
+<section class="slide">
+  <div class="kicker">Competition</div>
+  <h2>Everyone built fast.<br><em>Nobody built patient.</em></h2>
+  <table>
+    <tr><th>Entry</th><th>What it does</th><th>What it lacks</th></tr>
+    <tr><td>EverCall</td><td>Daily grandma chats + mood radar</td><td>Simulated calls; observes, never acts</td></tr>
+    <tr><td>VoiceMed Aria</td><td>Triage nurse, strong safety</td><td>Fast-tuned; no receipts, no phone</td></tr>
+    <tr><td>CALL-E Solo</td><td>Clinic booking + read-back</td><td>Booking only; no meds, no proof artifact</td></tr>
+    <tr class="us"><td>SilverLine ✓</td><td>Waits + hears + books + teaches + proves — on a real phone line</td><td>—</td></tr>
+  </table>
+  <div class="foot"><span>SilverLine</span><span>6 / 8</span></div>
+</section>
+
+<!-- 7 BUSINESS -->
+<section class="slide">
+  <div class="kicker">Business model</div>
+  <h2>Cheaper than <em>phone tag.</em></h2>
+  <div class="grid3">
+    <div class="card"><div class="bignum">$49–199</div><div class="cap">per clinic location / month — replaces hours of staff reminder calls</div></div>
+    <div class="card"><div class="bignum">$0.50–1.50</div><div class="cap">per confirmed visit — priced against the no-show it prevents</div></div>
+    <div class="card"><div class="bignum">$9 / mo</div><div class="cap">caregiver plan: receipt history + medication-adherence view</div></div>
+  </div>
+  <div class="foot"><span>Retention: visits recur, check-ins compound, history accumulates</span><span>7 / 8</span></div>
+</section>
+
+<!-- 8 ROADMAP + CTA -->
+<section class="slide hero">
+  <div class="dots"></div>
+  <div style="position:relative">
+    <div class="kicker">Roadmap</div>
+    <h2 style="color:#fff">Pilots → one clinic →<br><em style="color:#fbbf24">the patient-voice layer.</em></h2>
+    <p class="lead">Older-adult tone pilots → single-location paid trial → pharmacy refills, scam warnings, WhatsApp intake.</p>
+    <div class="cta-row">
+      <div class="pill">▶ silverline-voice.vercel.app</div>
+      <div class="pill ghost">Call +1 (804) 315-1987</div>
+    </div>
+  </div>
+  <div class="foot" style="color:rgba(255,255,255,.65)"><span>SilverLine · MIT open source</span><span>8 / 8</span></div>
+</section>
+
+</body>
+</html>
