@@ -85,8 +85,15 @@ export default function VoiceCall() {
   const pendingToolsRef = useRef<{ call_id: string; result: string }[]>([]);
   const sessionIdRef = useRef<string | null>(null);
   const simTimers = useRef<ReturnType<typeof setTimeout>[]>([]);
+  const scrollRef = useRef<HTMLDivElement | null>(null);
   const stateRef = useRef({ preset, keytermsOn, stage });
   stateRef.current = { preset, keytermsOn, stage };
+
+  // Keep the newest line in view — live transcript must auto-scroll.
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (el) el.scrollTop = el.scrollHeight;
+  }, [lines]);
 
   // Recording/judging override: ?demo=1 forces the guided script (no mic),
   // ?preset=default starts in fast mode. Deterministic for video capture.
@@ -574,7 +581,7 @@ export default function VoiceCall() {
       </div>
 
       {/* Status + counters */}
-      <div className="flex flex-wrap gap-x-6 gap-y-1 px-5 pt-4 text-[15px]">
+      <div id="call-status" className="flex flex-wrap gap-x-6 gap-y-1 px-5 pt-4 text-[15px]">
         <p className="text-stone-600">
           Status: <span className="font-bold text-stone-900">{status}</span>
         </p>
@@ -589,7 +596,7 @@ export default function VoiceCall() {
       {error && <p className="mx-5 mt-3 rounded-xl bg-red-50 p-3 text-sm text-red-800">{error}</p>}
 
       {/* Transcript */}
-      <div className="max-h-96 min-h-48 space-y-3 overflow-y-auto px-5 py-4">
+      <div ref={scrollRef} className="max-h-96 min-h-48 space-y-3 overflow-y-auto px-5 py-4">
         {lines.length === 0 && (
           <p className="text-lg text-stone-400">
             Press <strong className="text-crimson">Call SilverLine</strong>. {preset === "patient" ? "Speak slowly, pause as long as you like — it will wait." : "Fast mode: notice how it cuts in."} Try saying
