@@ -1,5 +1,5 @@
 import { SEED_MEDS, CLINIC, DEMO_PATIENT } from "./clinic";
-import { bookSlot, listSlots, saveReceipt, logEvent, loadDb, recordMeds } from "./store";
+import { bookSlot, listSlots, saveReceipt, logEvent, callerMemory, recordMeds } from "./store";
 import { signReceipt, hmacFor } from "./receipt";
 import { sendReceiptSms } from "./sms";
 
@@ -70,14 +70,11 @@ export async function runTool(
     }
     case "issue_receipt": {
       const summary = String(args.summary ?? "Visit and medications confirmed.");
-      const db = await loadDb();
-      const last = db.lastBookingByPatient[patient];
-      const slotId = String(args.slot_id ?? last?.slotId ?? "");
+      const mem = await callerMemory(patient);
+      const slotId = String(args.slot_id ?? mem.slotId ?? "");
       let medsConfirmed = Array.isArray(args.meds_confirmed) ? args.meds_confirmed.map(String) : [];
-      if (medsConfirmed.length === 0 && db.medsByPatient[patient]) {
-        medsConfirmed = db.medsByPatient[patient];
-      }
-      const idem = String(args.idempotency_key ?? last?.idempotencyKey ?? `rcpt-${Date.now()}`);
+      if (medsConfirmed.length === 0) medsConfirmed = mem.meds;
+      const idem = String(args.idempotency_key ?? mem.idempotencyKey ?? `rcpt-${Date.now()}`);
       const slot = (await listSlots()).find((s) => s.id === slotId);
       const payload = signReceipt({
         workspace: CLINIC.name,

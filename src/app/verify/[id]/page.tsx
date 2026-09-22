@@ -21,17 +21,17 @@ export default async function VerifyPage({
   const valid = verifyReceipt(payload, hmac);
 
   return (
-    <main className="min-h-screen bg-stone-50 text-stone-900">
+    <main className="min-h-screen bg-cream text-stone-900">
       <div className="mx-auto max-w-2xl px-6 py-14">
         <Link href="/" className="text-sm text-stone-500 underline">← SilverLine</Link>
-        <h1 className="mt-4 text-3xl font-semibold">Voice receipt</h1>
+        <h1 className="mt-4 font-display text-4xl font-extrabold">Voice receipt</h1>
         <p className="mt-2 text-stone-600">
           This record was created by a SilverLine call and cryptographically signed.
           If any detail is changed, verification fails.
         </p>
 
-        <div className={`mt-6 rounded-2xl border-2 p-5 ${valid ? "border-emerald-600 bg-emerald-50" : "border-red-600 bg-red-50"}`}>
-          <p className={`text-xl font-bold ${valid ? "text-emerald-800" : "text-red-800"}`}>
+        <div className={`mt-6 rounded-2xl border-2 p-5 ${valid ? "border-crimson bg-blush/60" : "border-red-600 bg-red-50"}`}>
+          <p className={`text-xl font-bold ${valid ? "text-crimson-deep" : "text-red-800"}`}>
             {valid ? "✓ Verified — exactly as confirmed on the call" : "✕ Verification failed — details were changed"}
           </p>
         </div>

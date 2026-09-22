@@ -509,31 +509,31 @@ export default function VoiceCall() {
   const calling = status !== "idle" && !status.startsWith("call complete") && !status.startsWith("call ended");
 
   return (
-    <div className="overflow-hidden rounded-3xl border border-stone-200 bg-white shadow-xl">
+    <div className="overflow-hidden rounded-[2rem] border border-rosewood/10 bg-white shadow-2xl shadow-rosewood/10">
       {/* Control bar */}
-      <div className="flex flex-wrap items-center gap-3 border-b border-stone-100 bg-stone-50 px-5 py-4">
+      <div className="flex flex-wrap items-center gap-3 border-b border-rosewood/10 bg-blush/50 px-5 py-4">
         {!calling ? (
           <button
             onClick={start}
-            className="rounded-full bg-emerald-700 px-8 py-3 text-lg font-semibold text-white shadow hover:bg-emerald-800"
+            className="animate-pulse-ring rounded-full bg-crimson px-8 py-3.5 font-display text-lg font-bold text-white shadow-xl shadow-crimson/30 transition hover:scale-[1.03] hover:bg-crimson-deep"
           >
             📞 Call SilverLine
           </button>
         ) : (
           <button
             onClick={end}
-            className="rounded-full bg-stone-800 px-8 py-3 text-lg font-semibold text-white shadow hover:bg-stone-900"
+            className="rounded-full bg-stone-800 px-8 py-3.5 font-display text-lg font-bold text-white shadow transition hover:bg-stone-900"
           >
             End call
           </button>
         )}
         <div className="flex items-center gap-2 text-sm">
-          <span className="text-stone-500">Patience:</span>
+          <span className="font-bold text-stone-500">Patience:</span>
           {(Object.keys(PRESETS) as PresetId[]).map((id) => (
             <button
               key={id}
               onClick={() => switchPreset(id)}
-              className={`rounded-full px-3 py-1.5 font-medium ${preset === id ? "bg-stone-900 text-white" : "bg-stone-200 text-stone-700 hover:bg-stone-300"}`}
+              className={`rounded-full px-3 py-1.5 font-bold ${preset === id ? "bg-crimson text-white shadow" : "bg-white text-stone-600 ring-1 ring-stone-200 hover:bg-stone-100"}`}
             >
               {PRESETS[id].label}
             </button>
@@ -541,27 +541,27 @@ export default function VoiceCall() {
         </div>
         <button
           onClick={toggleKeyterms}
-          className={`rounded-full px-3 py-1.5 text-sm font-medium ${keytermsOn ? "bg-amber-400 text-stone-900" : "bg-stone-200 text-stone-600"}`}
+          className={`rounded-full px-3 py-1.5 text-sm font-bold ${keytermsOn ? "bg-amber-400 text-stone-900 shadow" : "bg-white text-stone-500 ring-1 ring-stone-200"}`}
           title="Boost recognition of drug & clinic names"
         >
           Keyterms {keytermsOn ? "ON" : "OFF"}
         </button>
-        <span className="ml-auto text-xs text-stone-500">
+        <span className="ml-auto text-xs font-bold text-stone-500">
           {mode === "live" ? "● live voice (AssemblyAI)" : mode === "demo" ? "● guided demo (add API key for live voice)" : "● ready"}
         </span>
       </div>
 
       {/* Status + counters */}
-      <div className="flex flex-wrap gap-x-6 gap-y-1 px-5 pt-4 text-sm">
+      <div className="flex flex-wrap gap-x-6 gap-y-1 px-5 pt-4 text-[15px]">
         <p className="text-stone-600">
-          Status: <span className="font-medium text-stone-900">{status}</span>
+          Status: <span className="font-bold text-stone-900">{status}</span>
         </p>
         <p className="text-stone-600">
-          Interruptions: <span className="font-bold text-emerald-700">{interruptions}</span>
+          Interruptions: <span className="font-display font-extrabold text-crimson">{interruptions}</span>
           <span className="text-stone-400"> (target: 0)</span>
         </p>
         <p className="text-stone-600">
-          Tool calls: <span className="font-bold">{toolCalls}</span>
+          Tool calls: <span className="font-display font-extrabold">{toolCalls}</span>
         </p>
       </div>
       {error && <p className="mx-5 mt-3 rounded-xl bg-red-50 p-3 text-sm text-red-800">{error}</p>}
@@ -569,8 +569,8 @@ export default function VoiceCall() {
       {/* Transcript */}
       <div className="max-h-96 min-h-48 space-y-3 overflow-y-auto px-5 py-4">
         {lines.length === 0 && (
-          <p className="text-stone-400">
-            Press <strong>Call SilverLine</strong>. {preset === "patient" ? "Speak slowly, pause as long as you like — it will wait." : "Fast mode: notice how it cuts in."} Try saying
+          <p className="text-lg text-stone-400">
+            Press <strong className="text-crimson">Call SilverLine</strong>. {preset === "patient" ? "Speak slowly, pause as long as you like — it will wait." : "Fast mode: notice how it cuts in."} Try saying
             “Thursday at ten” with long pauses, or “Metoprolol succinate”.
           </p>
         )}
@@ -579,14 +579,14 @@ export default function VoiceCall() {
             key={l.id}
             className={`max-w-[90%] rounded-2xl px-4 py-2.5 text-[17px] leading-relaxed ${
               l.who === "agent"
-                ? "bg-emerald-50 text-stone-900"
+                ? "bg-blush text-stone-900"
                 : l.who === "you"
                   ? "ml-auto bg-stone-900 text-white"
                   : "mx-auto bg-amber-50 text-center text-sm text-stone-600"
             } ${l.partial ? "opacity-70" : ""}`}
           >
             {l.who !== "system" && (
-              <span className="mb-0.5 block text-xs font-semibold uppercase tracking-wide opacity-60">
+              <span className={`mb-0.5 block text-xs font-bold uppercase tracking-wide opacity-60 ${l.who === "agent" ? "text-crimson" : ""}`}>
                 {l.who === "agent" ? "SilverLine" : "You"}
               </span>
             )}
@@ -597,13 +597,13 @@ export default function VoiceCall() {
 
       {/* Receipt */}
       {receiptUrl && (
-        <div className="mx-5 mb-5 rounded-2xl border-2 border-emerald-600 bg-emerald-50 p-4">
-          <p className="font-semibold text-emerald-900">✓ Signed voice receipt issued</p>
-          <a href={receiptUrl} className="font-medium text-emerald-800 underline">
+        <div className="mx-5 mb-5 rounded-2xl border-2 border-crimson bg-blush/60 p-4">
+          <p className="font-display font-bold text-crimson-deep">✓ Signed voice receipt issued</p>
+          <a href={receiptUrl} className="font-bold text-crimson underline">
             Verify the receipt →
           </a>
           <span className="mx-2 text-stone-400">·</span>
-          <a href="/dashboard" className="font-medium text-emerald-800 underline">
+          <a href="/dashboard" className="font-bold text-crimson underline">
             Family dashboard →
           </a>
         </div>
