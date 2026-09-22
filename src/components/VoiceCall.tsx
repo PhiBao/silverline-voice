@@ -532,6 +532,7 @@ export default function VoiceCall() {
       <div className="flex flex-wrap items-center gap-3 border-b border-rosewood/10 bg-blush/50 px-5 py-4">
         {!calling ? (
           <button
+            id="btn-call"
             onClick={start}
             className="animate-pulse-ring rounded-full bg-crimson px-8 py-3.5 font-display text-lg font-bold text-white shadow-xl shadow-crimson/30 transition hover:scale-[1.03] hover:bg-crimson-deep"
           >
@@ -539,6 +540,7 @@ export default function VoiceCall() {
           </button>
         ) : (
           <button
+            id="btn-call"
             onClick={end}
             className="rounded-full bg-stone-800 px-8 py-3.5 font-display text-lg font-bold text-white shadow transition hover:bg-stone-900"
           >
@@ -550,6 +552,7 @@ export default function VoiceCall() {
           {(Object.keys(PRESETS) as PresetId[]).map((id) => (
             <button
               key={id}
+              id={`preset-${id}`}
               onClick={() => switchPreset(id)}
               className={`rounded-full px-3 py-1.5 font-bold ${preset === id ? "bg-crimson text-white shadow" : "bg-white text-stone-600 ring-1 ring-stone-200 hover:bg-stone-100"}`}
             >
@@ -558,6 +561,7 @@ export default function VoiceCall() {
           ))}
         </div>
         <button
+          id="btn-keyterms"
           onClick={toggleKeyterms}
           className={`rounded-full px-3 py-1.5 text-sm font-bold ${keytermsOn ? "bg-amber-400 text-stone-900 shadow" : "bg-white text-stone-500 ring-1 ring-stone-200"}`}
           title="Boost recognition of drug & clinic names"
@@ -615,9 +619,9 @@ export default function VoiceCall() {
 
       {/* Receipt */}
       {receiptUrl && (
-        <div className="mx-5 mb-5 rounded-2xl border-2 border-crimson bg-blush/60 p-4">
+        <div id="receipt-card" className="mx-5 mb-5 rounded-2xl border-2 border-crimson bg-blush/60 p-4">
           <p className="font-display font-bold text-crimson-deep">✓ Signed voice receipt issued</p>
-          <a href={receiptUrl} className="font-bold text-crimson underline">
+          <a href={receiptUrl} className="font-bold text-crimson underline" id="receipt-link">
             Verify the receipt →
           </a>
           <span className="mx-2 text-stone-400">·</span>

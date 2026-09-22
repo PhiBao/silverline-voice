@@ -50,7 +50,7 @@ export default async function VerifyPage({
           Verification recomputes an HMAC-SHA256 signature over the clinic, patient,
           summary, visit, and booking key. Any edit breaks the match.{" "}
           {valid ? (
-            <a href="?tamper=1" className="underline">See what happens if a detail is edited →</a>
+            <a href="?tamper=1" id="tamper-link" className="underline">See what happens if a detail is edited →</a>
           ) : (
             <a href="?" className="underline">← back to the untampered record</a>
           )}
