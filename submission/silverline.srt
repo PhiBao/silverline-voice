@@ -1,0 +1,119 @@
+1
+00:00:00,100 --> 00:00:03,024
+Voice bots got faster every year.
+
+2
+00:00:02,975 --> 00:00:05,911
+And patients got older at the same time.
+
+3
+00:00:05,911 --> 00:00:09,699
+Nobody built a voice line for the people who need a pause.
+
+4
+00:00:09,699 --> 00:00:12,186
+So we built the one that waits.
+
+5
+00:00:12,789 --> 00:00:16,876
+This is a default voice bot, given an eighty-year-old caller.
+
+6
+00:00:16,826 --> 00:00:20,114
+She pauses to think, and it cuts her off.
+
+7
+00:00:20,114 --> 00:00:25,289
+She says Thursday, it hears Tuesday, and it stacks two questions at
+once.
+
+8
+00:00:25,289 --> 00:00:29,289
+Watch the counter: two interruptions in twelve seconds.
+
+9
+00:00:29,289 --> 00:00:33,176
+This is exactly why older adults hang up on voice AI.
+
+10
+00:00:33,780 --> 00:00:38,442
+Now the same caller, the same long pauses, on the patient line.
+
+11
+00:00:38,391 --> 00:00:40,380
+It simply waits.
+
+12
+00:00:40,380 --> 00:00:42,704
+One question at a time.
+
+13
+00:00:42,704 --> 00:00:49,366
+It reads the whole visit back, day, date, time, doctor, and books only
+on an explicit yes.
+
+14
+00:00:49,366 --> 00:00:57,067
+Then it teaches every medication back, drug names boosted in the
+keyterms, and issues a signed receipt her daughter can check.
+
+15
+00:00:57,067 --> 00:01:00,304
+That booking just landed in a real database.
+
+16
+00:01:00,920 --> 00:01:02,907
+None of it is mocked.
+
+17
+00:01:02,856 --> 00:01:05,344
+The visit lives in Postgres.
+
+18
+00:01:05,344 --> 00:01:09,394
+Offer the same slot twice and the second call is rejected.
+
+19
+00:01:09,394 --> 00:01:15,132
+Every action ends in an HMAC-signed receipt, and verification comes
+back true.
+
+20
+00:01:15,132 --> 00:01:23,432
+And the phone line is real too: Twilio logged an eight minute, eight
+second call, straight to the agent over the public switched network.
+
+21
+00:01:24,049 --> 00:01:27,250
+Here is a signed receipt from a completed call.
+
+22
+00:01:27,200 --> 00:01:31,025
+Verified, exactly as confirmed on the voice line.
+
+23
+00:01:31,025 --> 00:01:35,337
+Now watch what happens when one character of the summary is changed.
+
+24
+00:01:35,337 --> 00:01:37,825
+The signature fails instantly.
+
+25
+00:01:37,825 --> 00:01:42,849
+That is the difference between a chatbot promise and a record your
+family can trust.
+
+26
+00:01:43,459 --> 00:01:53,260
+The demo runs on silverline voice dot vercel dot app, or just call
+plus one eight oh four, three fifteen, nineteen eighty seven, and
+
+27
+00:01:53,209 --> 00:01:54,921
+SilverLine.
+
+28
+00:01:54,921 --> 00:01:57,272
+The voice line that waits.
+
