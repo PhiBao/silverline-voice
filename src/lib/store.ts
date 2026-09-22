@@ -227,7 +227,7 @@ export async function saveReceipt(r: StoredReceipt): Promise<void> {
   await c.from("receipts").insert({
     receipt_id: r.receiptId, workspace: r.workspace, patient: r.patient, summary: r.summary,
     slot_id: r.slotId, slot_label: r.slotLabel, idempotency_key: r.idempotencyKey,
-    meds_confirmed: r.medsConfirmed, hmac: r.hmac,
+    meds_confirmed: r.medsConfirmed, hmac: r.hmac, created_at: r.createdAt,
   });
   await c.from("events").insert({ kind: "receipt.issued", detail: `Receipt ${r.receiptId} for ${r.patient}: ${r.summary}` });
 }
