@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import VoiceCall from "@/components/VoiceCall";
 
@@ -38,31 +39,64 @@ function Hero() {
   return (
     <section className="relative overflow-hidden bg-crimson text-white">
       <div className="dot-grid absolute inset-0" aria-hidden />
-      <div className="relative mx-auto max-w-6xl px-6 pb-16 pt-16 md:pt-24">
-        <p className="inline-block rounded-full bg-white/15 px-4 py-1.5 text-sm font-bold tracking-wide">
-          ASSEMBLYAI VOICE AGENT HACKATHON · LIVE ON A REAL PHONE LINE
-        </p>
-        <h1 className="font-display mt-5 max-w-3xl text-5xl font-extrabold leading-[1.02] md:text-7xl">
-          The voice line that <u className="decoration-white/60 underline-offset-8">waits.</u>
-        </h1>
-        <p className="mt-5 max-w-2xl text-xl leading-relaxed text-white/90">
-          Every voice bot hangs up on Grandma first — it mistakes thinking for
-          finished. SilverLine confirms visits and medications over a plain
-          phone call, then gives the family a signed receipt that it happened right.
-        </p>
-        <div className="mt-8 flex flex-wrap gap-4">
-          <a
-            href="#demo"
-            className="rounded-full bg-white px-8 py-4 font-display text-lg font-bold text-crimson shadow-xl transition hover:scale-[1.03]"
-          >
-            ▶ Try the live demo
-          </a>
-          <a
-            href="tel:+18043151987"
-            className="rounded-full border-2 border-white/70 px-8 py-4 font-display text-lg font-bold text-white transition hover:bg-white/10"
-          >
-            Call +1 (804) 315-1987
-          </a>
+      <div className="relative mx-auto max-w-6xl px-6 pb-16 pt-16 md:pt-20">
+        <div className="grid items-center gap-10 md:grid-cols-[1.05fr_0.95fr]">
+          <div>
+            <p className="inline-block rounded-full bg-white/15 px-4 py-1.5 text-sm font-bold tracking-wide">
+              ASSEMBLYAI VOICE AGENT HACKATHON · LIVE ON A REAL PHONE LINE
+            </p>
+            <h1 className="font-display mt-5 text-5xl font-extrabold leading-[1.02] md:text-7xl">
+              The voice line that <u className="decoration-white/60 underline-offset-8">waits.</u>
+            </h1>
+            <p className="mt-5 max-w-xl text-xl leading-relaxed text-white/90">
+              Every voice bot hangs up on Grandma first — it mistakes thinking for
+              finished. SilverLine confirms visits and medications over a plain
+              phone call, then gives the family a signed receipt that it happened right.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-4">
+              <a
+                href="#demo"
+                className="rounded-full bg-white px-8 py-4 font-display text-lg font-bold text-crimson shadow-xl transition hover:scale-[1.03]"
+              >
+                ▶ Try the live demo
+              </a>
+              <a
+                href="tel:+18043151987"
+                className="rounded-full border-2 border-white/70 px-8 py-4 font-display text-lg font-bold text-white transition hover:bg-white/10"
+              >
+                Call +1 (804) 315-1987
+              </a>
+            </div>
+          </div>
+
+          {/* Margaret on the call */}
+          <figure className="relative mx-auto w-full max-w-md">
+            <div className="overflow-hidden rounded-[2.5rem] border-4 border-white/70 shadow-2xl">
+              <Image
+                src="/hero-elderly.jpg"
+                alt="Smiling elderly woman talking on the phone at home"
+                width={800}
+                height={600}
+                className="h-auto w-full object-cover"
+                priority
+              />
+            </div>
+            <span
+              style={{ "--tilt": "-3deg" } as React.CSSProperties}
+              className="animate-floaty absolute -left-4 top-8 rounded-2xl bg-white px-4 py-2.5 font-display text-sm font-bold text-stone-800 shadow-2xl md:-left-8"
+            >
+              “…Thursday… ten…” ✓ heard, not cut off
+            </span>
+            <span
+              style={{ "--tilt": "2.5deg", animationDelay: "1.2s" } as React.CSSProperties}
+              className="animate-floaty absolute -right-3 bottom-10 rounded-2xl bg-stone-900 px-4 py-2.5 font-display text-sm font-bold text-white shadow-2xl md:-right-6"
+            >
+              🧾 Receipt verified ✓
+            </span>
+            <figcaption className="mt-3 text-center text-sm text-white/70">
+              Margaret, 78 — confirmed her visit in one slow call. Photo: Unsplash.
+            </figcaption>
+          </figure>
         </div>
 
         {/* Floating proof bubbles */}
@@ -71,7 +105,6 @@ function Hero() {
             { t: "Visit booked · Thu 10 AM ✓", tilt: "-2deg", d: "0s" },
             { t: "Metoprolol succinate ✓ heard right", tilt: "1.5deg", d: "0.8s" },
             { t: "0 interruptions in 8 min ✓", tilt: "-1deg", d: "1.6s" },
-            { t: "Receipt verified ✓", tilt: "2deg", d: "2.2s" },
           ].map((b) => (
             <span
               key={b.t}
