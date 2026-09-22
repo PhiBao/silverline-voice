@@ -543,7 +543,7 @@ export default function VoiceCall() {
             onClick={start}
             className="animate-pulse-ring rounded-full bg-crimson px-8 py-3.5 font-display text-lg font-bold text-white shadow-xl shadow-crimson/30 transition hover:scale-[1.03] hover:bg-crimson-deep"
           >
-            📞 Call SilverLine
+            Call SilverLine
           </button>
         ) : (
           <button

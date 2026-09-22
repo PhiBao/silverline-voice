@@ -28,7 +28,7 @@ function Nav() {
           href="tel:+18043151987"
           className="rounded-full bg-crimson px-5 py-2.5 font-display text-[15px] font-bold text-white shadow-lg shadow-crimson/30 transition hover:bg-crimson-deep"
         >
-          📞 +1 (804) 315-1987
+          Call +1 (804) 315-1987
         </a>
       </div>
     </header>
