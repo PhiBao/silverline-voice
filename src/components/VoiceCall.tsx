@@ -88,6 +88,16 @@ export default function VoiceCall() {
   const stateRef = useRef({ preset, keytermsOn, stage });
   stateRef.current = { preset, keytermsOn, stage };
 
+  // Recording/judging override: ?demo=1 forces the guided script (no mic),
+  // ?preset=default starts in fast mode. Deterministic for video capture.
+  useEffect(() => {
+    const q = new URLSearchParams(window.location.search);
+    if (q.get("preset") === "default") {
+      setPreset("default");
+      stateRef.current.preset = "default";
+    }
+  }, []);
+
   const pushLine = useCallback((who: Line["who"], text: string, partial = false) => {
     const id = nextId();
     setLines((prev) => {
@@ -335,34 +345,36 @@ export default function VoiceCall() {
     pushLine("agent", `Hello, ${DEMO_PATIENT.name}! This is SilverLine, calling for Maple Street Family Clinic. Take your time, dear — there is no rush at all. Can you hear me all right?`);
     after(2500, () => pushLine("you", "…yes… hello? …is… is anyone there?"));
     if (fast) {
-      after(4000, () => {
-        pushLine("agent", "Sorry, I didn't catch that — let's move on. What day works for you?");
+      after(3600, () => {
+        pushLine("agent", "Sorry, I didn't catch that — what day works for you?");
         setInterruptions((c) => c + 1);
       });
-      after(5500, () => pushLine("system", "◉ FAST mode: cut in after ~1s of hesitant silence (interruption #1)"));
-      after(7500, () => pushLine("you", "…Thursday… …ten…"));
-      after(8500, () => {
-        pushLine("agent", "Was that Tuesday? Let's move quickly — morning or afternoon?");
+      after(4800, () => pushLine("system", "◉ FAST mode: cut in after ~1s of hesitant silence (interruption #1)"));
+      after(6200, () => pushLine("you", "…Thursday… …ten…"));
+      after(7200, () => {
+        pushLine("agent", "Was that Tuesday? And morning or afternoon? Let's keep things moving, please.");
         setInterruptions((c) => c + 1);
       });
-      after(9500, () => pushLine("system", "◉ FAST mode: guessed wrong + stacked two questions (interruption #2). Switch to patient mode and call again to feel the difference."));
-      after(11000, () => setStatus("demo complete — 2 interruptions. Try patient mode →"));
+      after(8400, () => pushLine("system", "◉ FAST mode: guessed wrong + stacked two questions (interruption #2)"));
+      after(9800, () => pushLine("you", "…no… Thursday… I… I think I should hang up…"));
+      after(10800, () => pushLine("system", "◉ The caller gave up. 2 interruptions in 11 seconds. This is why seniors hate voice bots."));
+      after(11800, () => setStatus("demo complete — 2 interruptions, caller lost. Try patient mode →"));
       return;
     }
-    after(4500, () => pushLine("system", "◉ Patience envelope: 2.0s of hesitant silence — agent keeps waiting (default bots cut in here)"));
-    after(7000, () => pushLine("agent", "I hear you just fine. I am here with you. I see a visit with Dr. Rao — Thursday, September 17 at 10 in the morning. Does that still suit you?"));
-    after(10000, () => pushLine("you", "…Thursday… …ten… …I think… yes…"));
-    after(12500, () => pushLine("system", "◉ Read-back gate: no booking until the full visit is repeated and confirmed"));
-    after(14000, async () => {
+    after(3600, () => pushLine("system", "◉ Patience envelope: 2.0s of hesitant silence — agent keeps waiting (default bots cut in here)"));
+    after(5200, () => pushLine("agent", "I hear you just fine. I am here with you. I see a visit with Dr. Rao — Thursday, September 17 at 10 in the morning. Does that still suit you?"));
+    after(6800, () => pushLine("you", "…Thursday… …ten… …I think… yes…"));
+    after(7800, () => pushLine("system", "◉ Read-back gate: no booking until the full visit is repeated and confirmed"));
+    after(8800, async () => {
       pushLine("agent", "Let me read that back slowly. Thursday, September 17, at 10 AM, with Dr. Rao, at Maple Street Family Clinic. If that is right, just say yes.");
       await runTool("check_availability", { clinician: "Dr. Rao" });
     });
-    after(17500, () => pushLine("you", "…yes… that's right…"));
-    after(19000, async () => {
+    after(10600, () => pushLine("you", "…yes… that's right…"));
+    after(11600, async () => {
       const booked = await runTool("book_visit", {
         slot_id: "s1",
         patient: DEMO_PATIENT.name,
-        idempotency_key: `s1-demo-${new Date().toISOString().slice(0, 10)}`,
+        idempotency_key: "s1-demo-scripted",
       });
       pushLine(
         "agent",
@@ -371,7 +383,7 @@ export default function VoiceCall() {
           : `Oh dear — ${booked.message ?? "that time just went."} Let's find you another.`,
       );
     });
-    after(23000, () => {
+    after(13800, () => {
       if (!stateRef.current.keytermsOn) {
         pushLine("you", "…met… metopro… lol… succin… something…");
         pushLine("system", "◉ Keyterms OFF: drug name arrives mangled — teach-back stalls");
@@ -381,18 +393,18 @@ export default function VoiceCall() {
         pushLine("system", "◉ Keyterms ON (drug names boosted): entity arrives clean on the first try");
       }
     });
-    after(26000, async () => {
+    after(15200, async () => {
       await runTool("list_medications", {});
       pushLine("agent", "Yes — Metoprolol succinate, 50 milligrams, every morning. Can you say that back to me?");
     });
-    after(29000, () => pushLine("you", "…Metoprolol… succinate… every morning…"));
-    after(30500, async () => {
+    after(17000, () => pushLine("you", "…Metoprolol… succinate… every morning…"));
+    after(17800, async () => {
       await runTool("confirm_medications", { confirmed: ["Metoprolol succinate"] });
       const rc = await runTool("issue_receipt", {
         summary: "Visit Thursday September 17 at 10 AM with Dr. Rao; Metoprolol succinate teach-back confirmed.",
         slot_id: "s1",
         meds_confirmed: ["Metoprolol succinate"],
-        idempotency_key: `s1-demo-${new Date().toISOString().slice(0, 10)}`,
+        idempotency_key: "s1-demo-scripted",
       });
       pushLine(
         "agent",
@@ -410,6 +422,12 @@ export default function VoiceCall() {
     setStage("appointment");
     setStatus("connecting…");
     try {
+      const forceDemo = new URLSearchParams(window.location.search).get("demo") === "1";
+      if (forceDemo) {
+        setMode("demo");
+        startDemo();
+        return;
+      }
       const res = await fetch("/api/token");
       const data = await res.json();
       if (!res.ok) {
